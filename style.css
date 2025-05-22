@@ -1,3 +1,4 @@
+
 :root{
   --primary:#C62828;
   --surface:#FFFFFF;
@@ -230,23 +231,20 @@ body{
   .thread {
     position: fixed;
     top: 0;
-    left: 0;
+    left: 100%;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background: white;
     z-index: 1000;
     padding: 16px;
     overflow-y: auto;
-    transform: translateX(100%); /* ← 初期状態は画面外 */
+    transform: translateX(0%);
     transition: transform 0.3s ease;
     box-shadow: none;
     border-radius: 0;
-    display: flex;
-    flex-direction: column;
   }
-
   .thread.visible {
-    transform: translateX(0%); /* ← visible時にスライドイン */
+    transform: translateX(-100%);
   }
   .back-btn {
     display: inline-block;
