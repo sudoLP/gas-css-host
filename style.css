@@ -233,8 +233,8 @@ body{
     top: 0;
     left: 100%;
     width: 100%;
-    height: auto;
-    min-height: 100%;
+    height: auto;/*横丁2.5　100vh*/
+    min-height: 100%;/*横丁2.5追記*/
     background: white;
     z-index: 1000;
     padding: 16px;
