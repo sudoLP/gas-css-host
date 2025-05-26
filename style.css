@@ -214,6 +214,7 @@ body{
 
 .engagement .like.liked .icon {
   color: var(--primary);
+  font-weight: bold;
 }
 /* スマホ表示 */
 @media (max-width: 768px) {
