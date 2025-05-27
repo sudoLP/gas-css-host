@@ -19,14 +19,19 @@
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/a/macros/g.koran.ac.jp/s/AKfycbxN3ClM1e8eId4BK2RG3knjnLyW3MleOgAhfVymTVxSNa5TRiB8wXNVZVjGrvLZUrzG/exec"></iframe>
+  <h1>香蘭横丁 チャット</h1>
+  <p>あなたの学籍番号：<span id="username">取得中...</span></p>
+
+  <!-- ここにチャットUIを配置 -->
   <script>
-  const params = new URLSearchParams(window.location.search);
-  const uid = params.get("uid");
-  if (uid) {
-    document.getElementById("username").textContent = uid;
-    // window.history.replaceState({}, document.title, location.pathname); // 表示をきれいにする場合
-  }
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get("uid");
+    if (uid) {
+      document.getElementById("username").textContent = uid;
+      window.history.replaceState({}, document.title, window.location.pathname); // URLを綺麗に
+    } else {
+      document.getElementById("username").textContent = "不明";
+    }
   </script>
 </body>
 </html>
