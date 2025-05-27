@@ -19,6 +19,14 @@
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/a/macros/g.koran.ac.jp/s/AKfycbzJU7UwsHM4swyZHKOpnGJwqYAulXCYY9PPyimS3GKQJgaOWGKpyjV_VSBy9YSm1O-M/exec"></iframe>
+  <iframe src="https://script.google.com/a/macros/g.koran.ac.jp/s/AKfycbxN3ClM1e8eId4BK2RG3knjnLyW3MleOgAhfVymTVxSNa5TRiB8wXNVZVjGrvLZUrzG/exec"></iframe>
+  <script>
+  const params = new URLSearchParams(window.location.search);
+  const uid = params.get("uid");
+  if (uid) {
+    document.getElementById("username").textContent = uid;
+    // window.history.replaceState({}, document.title, location.pathname); // 表示をきれいにする場合
+  }
+  </script>
 </body>
 </html>
