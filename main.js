@@ -54,46 +54,56 @@ async function loadTopics() {
 }
 
 async function loadThread(id, title, body) {
-  const res = await fetch(`${WEBAPP}?action=getThread&id=${id}`);
-  const comments = await res.json();
+  try {
+    console.log("🟡 loadThread開始:", id, title, body);
 
-  threadEl.innerHTML = `
-    <div class="thread-header">
-      <button class="back-btn" onclick="closeThread()">←</button>
-      <h2>${title}</h2>
-    </div>
-    <p>${body}</p>
-    <div id="comments">
-      ${comments.map(c => `
-        <div class="comment">
-          <strong>${c.user}</strong>
-          <time>${new Date(c.ts).toLocaleString()}</time>
-          <p>${c.body}</p>
-        </div>`).join('')}
-    </div>
-    <form id="replyForm">
-      <textarea name="body" rows="3" required></textarea>
-      <button type="submit">返信</button>
-    </form>
-  `;
+    const res = await fetch(`${WEBAPP}?action=getThread&id=${id}`);
+    const comments = await res.json();
 
-  const replyForm = document.getElementById("replyForm");
-  replyForm?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const body = replyForm.body.value.trim();
-    if (!body) return;
+    console.log("🟢 コメント取得成功:", comments);
 
-    await fetch(`${WEBAPP}?action=addComment`, {
-      method: "POST",
-      body: JSON.stringify({ id, body, user: userId }),
+    threadEl.innerHTML = `
+      <div class="thread-header">
+        <button class="back-btn" onclick="closeThread()">←</button>
+        <h2>${title}</h2>
+      </div>
+      <p>${body}</p>
+      <div id="comments">
+        ${comments.map(c => `
+          <div class="comment">
+            <strong>${c.user}</strong>
+            <time>${new Date(c.ts).toLocaleString()}</time>
+            <p>${c.body}</p>
+          </div>`).join('')}
+      </div>
+      <form id="replyForm">
+        <textarea name="body" rows="3" required></textarea>
+        <button type="submit">返信</button>
+      </form>
+    `;
+
+    // スレッド表示
+    threadEl.classList.remove("hidden");
+    threadEl.classList.add("visible");
+
+    const replyForm = document.getElementById("replyForm");
+    replyForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const body = replyForm.body.value.trim();
+      if (!body) return;
+
+      await fetch(`${WEBAPP}?action=addComment`, {
+        method: "POST",
+        body: JSON.stringify({ id, body, user: userId }),
+      });
+
+      replyForm.reset();
+      loadThread(id, title, body); // 再読み込み
     });
 
-    replyForm.reset();
-    loadThread(id, title, body);
-  });
-
-  threadEl.classList.remove("hidden");
-  threadEl.classList.add("visible");
+  } catch (err) {
+    console.error("❌ loadThread失敗:", err);
+  }
 }
 
 function closeThread() {
