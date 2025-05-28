@@ -37,34 +37,43 @@ async function loadTopics() {
         <span class="comment-count">💬 <span class="count">${t.comments || 0}</span></span>
       </div>
     ;
-    card.addEventListener("click", () => loadThread(i, t.title, t.body));
+  card.addEventListener("click", () => loadThread(i, t.title, t.body));
     topicList.appendChild(card);
+    card.addEventListener("click", () => {
+    // すべてのカードから active を外す
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+  
+    // 現在のカードに active を付ける
+    card.classList.add("active");
+  
+    // スレッド読み込み
+    loadThread(i, t.title, t.body);
   });
 }
 
 async function loadThread(id, title, body) {
-  const res = await fetch(${WEBAPP}?action=getThread&id=${id});
+  const res = await fetch(`${WEBAPP}?action=getThread&id=${id}`);
   const comments = await res.json();
 
-  threadEl.innerHTML = 
+  threadEl.innerHTML = `
     <div class="thread-header">
       <button onclick="closeThread()">←</button>
       <h2>${title}</h2>
     </div>
     <p>${body}</p>
     <div id="comments">
-      ${comments.map(c => 
+      ${comments.map(c => `
         <div class="comment">
           <strong>${c.user}</strong>
           <time>${new Date(c.ts).toLocaleString()}</time>
           <p>${c.body}</p>
-        </div>).join('')}
+        </div>`).join('')}
     </div>
     <form id="replyForm">
       <textarea name="body" rows="3" required></textarea>
       <button type="submit">返信</button>
     </form>
-  ;
+  `;
 
   const replyForm = document.getElementById("replyForm");
   replyForm?.addEventListener("submit", async (e) => {
@@ -72,7 +81,7 @@ async function loadThread(id, title, body) {
     const body = replyForm.body.value.trim();
     if (!body) return;
 
-    await fetch(${WEBAPP}?action=addComment, {
+    await fetch(`${WEBAPP}?action=addComment`, {
       method: "POST",
       body: JSON.stringify({ id, body, user: userId }),
     });
@@ -94,7 +103,7 @@ async function onCreateSubmit(e) {
   const body = form.body.value.trim();
   if (!title || !body) return;
 
-  await fetch(${WEBAPP}?action=createTopic, {
+  await fetch(`${WEBAPP}?action=createTopic`, {
     method: "POST",
     body: JSON.stringify({ title, body, user: userId })
   });
