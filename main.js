@@ -38,8 +38,6 @@ async function loadTopics() {
       </div>
     `;
   card.addEventListener("click", () => {
-    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
-    card.classList.add("active");
     loadThread(i, t.title, t.body);
   });
 }
