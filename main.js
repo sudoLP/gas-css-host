@@ -37,11 +37,11 @@ async function loadTopics() {
         <span class="comment-count">💬 <span class="count">${t.comments || 0}</span></span>
       </div>
     `;
-    card.addEventListener("click", () => {
-      document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
-      loadThread(t.id, t.title, t.body);
-    });
+  card.addEventListener("click", () => {
+    loadThread(i, t.title, t.body);  // ← 先に詳細表示
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+    card.classList.add("active");    // ← 後に枠線
+  });
     topicList.appendChild(card);
   });
 }
