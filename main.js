@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function loadTopics() {
-  const res = await fetch(`${WEBAPP}?action=getTopics`);
+  const res = await fetch(${WEBAPP}?action=getTopics);
   const topics = await res.json();
 
   topicList.innerHTML = "";
@@ -29,79 +29,63 @@ async function loadTopics() {
     const card = document.createElement("article");
     card.className = "card";
     card.dataset.id = i;
-    card.innerHTML = `
+    card.innerHTML = 
       <h3>${t.title}</h3>
       <p>${t.body}</p>
       <div class="engagement">
         <span class="like">❤ <span class="count">${t.likes || 0}</span></span>
         <span class="comment-count">💬 <span class="count">${t.comments || 0}</span></span>
       </div>
-    `;
-
-    // ✅ カードクリック処理（赤枠 + 詳細表示）
-card.addEventListener("click", () => {
-  loadThread(i, t.title, t.body);
-});
+    ;
+    card.addEventListener("click", () => loadThread(i, t.title, t.body));
+    topicList.appendChild(card);
+  });
 }
 
 async function loadThread(id, title, body) {
-  try {
-    console.log("🟡 loadThread開始:", id, title, body);
+  const res = await fetch(${WEBAPP}?action=getThread&id=${id});
+  const comments = await res.json();
 
-    const res = await fetch(`${WEBAPP}?action=getThread&id=${id}`);
-    const comments = await res.json();
+  threadEl.innerHTML = 
+    <div class="thread-header">
+      <button onclick="closeThread()">←</button>
+      <h2>${title}</h2>
+    </div>
+    <p>${body}</p>
+    <div id="comments">
+      ${comments.map(c => 
+        <div class="comment">
+          <strong>${c.user}</strong>
+          <time>${new Date(c.ts).toLocaleString()}</time>
+          <p>${c.body}</p>
+        </div>).join('')}
+    </div>
+    <form id="replyForm">
+      <textarea name="body" rows="3" required></textarea>
+      <button type="submit">返信</button>
+    </form>
+  ;
 
-    console.log("🟢 コメント取得成功:", comments);
+  const replyForm = document.getElementById("replyForm");
+  replyForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const body = replyForm.body.value.trim();
+    if (!body) return;
 
-    threadEl.innerHTML = `
-      <div class="thread-header">
-        <button class="back-btn" onclick="closeThread()">←</button>
-        <h2>${title}</h2>
-      </div>
-      <p>${body}</p>
-      <div id="comments">
-        ${comments.map(c => `
-          <div class="comment">
-            <strong>${c.user}</strong>
-            <time>${new Date(c.ts).toLocaleString()}</time>
-            <p>${c.body}</p>
-          </div>`).join('')}
-      </div>
-      <form id="replyForm">
-        <textarea name="body" rows="3" required></textarea>
-        <button type="submit">返信</button>
-      </form>
-    `;
-
-    // スレッド表示
-    threadEl.classList.remove("hidden");
-    threadEl.classList.add("visible");
-
-    const replyForm = document.getElementById("replyForm");
-    replyForm?.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const body = replyForm.body.value.trim();
-      if (!body) return;
-
-      await fetch(`${WEBAPP}?action=addComment`, {
-        method: "POST",
-        body: JSON.stringify({ id, body, user: userId }),
-      });
-
-      replyForm.reset();
-      loadThread(id, title, body); // 再読み込み
+    await fetch(${WEBAPP}?action=addComment, {
+      method: "POST",
+      body: JSON.stringify({ id, body, user: userId }),
     });
 
-  } catch (err) {
-    console.error("❌ loadThread失敗:", err);
-  }
+    replyForm.reset();
+    loadThread(id, title, body);
+  });
+
+  threadEl.classList.remove("hidden");
 }
 
 function closeThread() {
   threadEl.classList.add("hidden");
-  threadEl.classList.remove("visible");
-
-  document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
 }
 
 async function onCreateSubmit(e) {
@@ -110,7 +94,7 @@ async function onCreateSubmit(e) {
   const body = form.body.value.trim();
   if (!title || !body) return;
 
-  await fetch(`${WEBAPP}?action=createTopic`, {
+  await fetch(${WEBAPP}?action=createTopic, {
     method: "POST",
     body: JSON.stringify({ title, body, user: userId })
   });
