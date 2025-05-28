@@ -39,17 +39,10 @@ async function loadTopics() {
     `;
 
     // ✅ カードクリック処理（赤枠 + 詳細表示）
-    card.addEventListener("click", () => {
-      // 他のカードの active クラスを外す
-      document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
-      // クリックしたカードに active クラスを追加
-      card.classList.add("active");
-
-      // スレッド表示
-      loadThread(i, t.title, t.body);
-    });
-
-    topicList.appendChild(card);
+  card.addEventListener("click", () => {
+    loadThread(i, t.title, t.body);  // ← 先に詳細表示
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+    card.classList.add("active");    // ← 後に枠線
   });
 }
 
