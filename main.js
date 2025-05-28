@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function loadTopics() {
-  const res = await fetch(${WEBAPP}?action=getTopics);
+  const res = await fetch(`${WEBAPP}?action=getTopics`);
   const topics = await res.json();
 
   topicList.innerHTML = "";
@@ -29,25 +29,16 @@ async function loadTopics() {
     const card = document.createElement("article");
     card.className = "card";
     card.dataset.id = i;
-    card.innerHTML = 
+    card.innerHTML = `
       <h3>${t.title}</h3>
       <p>${t.body}</p>
       <div class="engagement">
         <span class="like">❤ <span class="count">${t.likes || 0}</span></span>
         <span class="comment-count">💬 <span class="count">${t.comments || 0}</span></span>
       </div>
-    ;
-  card.addEventListener("click", () => loadThread(i, t.title, t.body));
+    `;
+    card.addEventListener("click", () => loadThread(i, t.title, t.body));
     topicList.appendChild(card);
-    card.addEventListener("click", () => {
-    // すべてのカードから active を外す
-    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
-  
-    // 現在のカードに active を付ける
-    card.classList.add("active");
-  
-    // スレッド読み込み
-    loadThread(i, t.title, t.body);
   });
 }
 
