@@ -1,4 +1,4 @@
-const WEBAPP = 'https://script.google.com/macros/s/AKfycbyJCG9Jir6Uqt7wwHUYJYKF2RoR8t6Tp4AFVv6gshpyxeonj0zf3cB7gytLBP5i99SC/exec';
+const WEBAPP = 'https://script.google.com/macros/s/AKfycbwaKwaCIjIAS--U2DbnRfQDyZ5azFzedq5siCfMuP9IcR-DpkdueujTnhJf5e15YD_w/exec';
 
 const params = new URLSearchParams(window.location.search);
 const userId = params.get("uid") || "anonymous";
