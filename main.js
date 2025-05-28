@@ -28,7 +28,7 @@ async function loadTopics() {
   topics.forEach((t, i) => {
     const card = document.createElement("article");
     card.className = "card";
-    card.dataset.id = i;
+    card.dataset.id = t.id;
     card.innerHTML = `
       <h3>${t.title}</h3>
       <p>${t.body}</p>
@@ -37,7 +37,11 @@ async function loadTopics() {
         <span class="comment-count">💬 <span class="count">${t.comments || 0}</span></span>
       </div>
     `;
-    card.addEventListener("click", () => loadThread(i, t.title, t.body));
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
+      loadThread(t.id, t.title, t.body);
+    });
     topicList.appendChild(card);
   });
 }
@@ -82,10 +86,13 @@ async function loadThread(id, title, body) {
   });
 
   threadEl.classList.remove("hidden");
+  threadEl.classList.add("visible");
 }
 
 function closeThread() {
   threadEl.classList.add("hidden");
+  threadEl.classList.remove("visible");
+  document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
 }
 
 async function onCreateSubmit(e) {
