@@ -39,11 +39,9 @@ async function loadTopics() {
     `;
 
     // ✅ カードクリック処理（赤枠 + 詳細表示）
-  card.addEventListener("click", () => {
-    loadThread(i, t.title, t.body);  // ← 先に詳細表示
-    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
-    card.classList.add("active");    // ← 後に枠線
-  });
+card.addEventListener("click", () => {
+  loadThread(i, t.title, t.body);
+});
 }
 
 async function loadThread(id, title, body) {
