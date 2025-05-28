@@ -1,4 +1,4 @@
-const WEBAPP = 'https://script.google.com/macros/s/AKfycbzM6GARkm1zE0rgw3RsZsild2o3jIYwo-9_488ydiWlBm9ZPLOgkqfqZcv2CQiwRdb3/exec';
+const WEBAPP = 'https://script.google.com/a/macros/g.koran.ac.jp/s/AKfycbzM6GARkm1zE0rgw3RsZsild2o3jIYwo-9_488ydiWlBm9ZPLOgkqfqZcv2CQiwRdb3/exec';
 
 const params = new URLSearchParams(window.location.search);
 const userId = params.get("uid") || "anonymous";
