@@ -1,37 +1,38 @@
-<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>香蘭横丁</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>香蘭横丁チャット</title>
+  <link rel="stylesheet" href="https://sudolp.github.io/gas-css-host/style.css">
 </head>
 <body>
-  <h1>香蘭横丁 チャット</h1>
-  <p>あなたの学籍番号：<span id="username">取得中...</span></p>
+  <header class="topbar">
+    <div class="logo-circle"></div><span>香蘭横丁</span>
+    <div class="spacer"></div>
+    <span id="userLabel">ログイン中: <span id="username">未取得</span></span>
+  </header>
 
-  <!-- ここにチャットUIを配置 -->
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const uid = params.get("uid");
-    if (uid) {
-      document.getElementById("username").textContent = uid;
-      window.history.replaceState({}, document.title, window.location.pathname); // URLを綺麗に
-    } else {
-      document.getElementById("username").textContent = "不明";
-    }
-  </script>
+  <main class="layout">
+    <section class="grid" id="topicList"></section>
+    <aside id="thread" class="thread hidden"></aside>
+  </main>
+
+  <button id="createBtn" class="fab">＋ 作成</button>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-inner">
+      <h3>トピックを作成</h3>
+      <form id="createForm">
+        <label>タイトル<br><input name="title" required></label><br>
+        <label>説明<br><textarea name="body" rows="4" required></textarea></label><br>
+        <div class="modal-actions">
+          <button type="button" id="cancelBtn">やめる</button>
+          <button type="submit">作成</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
 </body>
 </html>
