@@ -249,6 +249,7 @@ body{
     border-radius: 0;
   }
   .thread.visible {
+    display: block;
     transform: translateX(-100%);
   }
   .back-btn {
