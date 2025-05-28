@@ -1,4 +1,4 @@
-const WEBAPP = 'https://script.google.com/macros/s/AKfycbxxxxxxx/exec'; // ← あなたのGAS WebApp URLに差し替えてください
+const WEBAPP = 'https://script.google.com/a/macros/g.koran.ac.jp/s/AKfycbxL4RJPTadsolzbLO1_mvuXQptsawUudCg-0RkbiNAXfn5xwN77n95i6oTo3maqIGDQ/exec'; // ← あなたのGAS WebApp URLに差し替えてください
 
 const params = new URLSearchParams(window.location.search);
 const userId = params.get("uid") || "anonymous";
