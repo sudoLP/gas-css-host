@@ -1,4 +1,4 @@
-const WEBAPP = 'https://script.google.com/macros/s/AKfycbzUoc_wwZWTIKBMLlMRwaUECwIrOJu9WAVFZXoo3MfFRmtZDGDWlBhJEMFyXhdtgxM-/exec';
+const WEBAPP = 'https://script.google.com/macros/s/AKfycbwaKwaCIjIAS--U2DbnRfQDyZ5azFzedq5siCfMuP9IcR-DpkdueujTnhJf5e15YD_w/exec';
 
 const params = new URLSearchParams(window.location.search);
 const userId = params.get("uid") || "anonymous";
@@ -37,8 +37,19 @@ async function loadTopics() {
         <span class="comment-count">💬 <span class="count">${t.comments || 0}</span></span>
       </div>
     `;
-  card.addEventListener("click", () => {
-    loadThread(i, t.title, t.body);
+
+    // ✅ カードクリック処理（赤枠 + 詳細表示）
+    card.addEventListener("click", () => {
+      // 他のカードの active クラスを外す
+      document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+      // クリックしたカードに active クラスを追加
+      card.classList.add("active");
+
+      // スレッド表示
+      loadThread(i, t.title, t.body);
+    });
+
+    topicList.appendChild(card);
   });
 }
 
@@ -48,7 +59,7 @@ async function loadThread(id, title, body) {
 
   threadEl.innerHTML = `
     <div class="thread-header">
-      <button onclick="closeThread()">←</button>
+      <button class="back-btn" onclick="closeThread()">←</button>
       <h2>${title}</h2>
     </div>
     <p>${body}</p>
@@ -82,10 +93,14 @@ async function loadThread(id, title, body) {
   });
 
   threadEl.classList.remove("hidden");
+  threadEl.classList.add("visible");
 }
 
 function closeThread() {
   threadEl.classList.add("hidden");
+  threadEl.classList.remove("visible");
+
+  document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
 }
 
 async function onCreateSubmit(e) {
