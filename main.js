@@ -37,8 +37,15 @@ async function loadTopics() {
         <span class="comment-count">💬 <span class="count">${t.comments || 0}</span></span>
       </div>
     `;
-    card.addEventListener("click", () => loadThread(i, t.title, t.body));
-    topicList.appendChild(card);
+    card.addEventListener("click", () => {
+    // すべてのカードから active を外す
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+  
+    // 現在のカードに active を付ける
+    card.classList.add("active");
+  
+    // スレッド読み込み
+    loadThread(i, t.title, t.body);
   });
 }
 
