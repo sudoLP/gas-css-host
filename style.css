@@ -18,7 +18,7 @@ body{
   padding:0 24px;
   height:56px;
   background:var(--primary);
-  color:#222222;
+  color:#fff;
 }
 .logo-circle{
   width:24px;
@@ -230,7 +230,9 @@ body{
     flex-direction: column;
     gap: 12px;
   }
-
+  .topbar{
+    color:#222;
+  }
   .thread {
     position: fixed;
     top: 0;
