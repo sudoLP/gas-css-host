@@ -1,4 +1,4 @@
-const WEBAPP = 'https://script.google.com/macros/s/AKfycbw_POtkwotKa5tzjizmKyEk5OoR0Hv-LepINT_v9A9BI3Zw1vnJ1hCuoM9w-Ik03grF/exec';
+const WEBAPP = 'https://script.google.com/macros/s/AKfycbx2OZnx_NmZQyT8uvXjkozBXMxb9QjeY0svNRubm7VVW2kXHeJDU_KvSVjDjrN6dF0L/exec';
 
 const params = new URLSearchParams(window.location.search);
 const userId = params.get("uid") || "guest";
