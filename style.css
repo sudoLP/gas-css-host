@@ -250,7 +250,7 @@ body{
     display: block;
     transform: translateX(-100%);
   }
-  .thread .back-btn {
+  [class*="back-btn"] {
     background-color: var(--primary) !important;
     color: white !important;
     border: none !important;
