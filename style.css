@@ -137,6 +137,12 @@ body{
   background:var(--primary);
   color:#fff;
 }
+#modal input[name="title"],
+#modal textarea[name="body"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .comment-count {
   margin-top: 12px;
   text-align: right;
