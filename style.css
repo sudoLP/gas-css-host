@@ -18,7 +18,7 @@ body{
   padding:0 24px;
   height:56px;
   background:var(--primary);
-  color:#fff;
+  color:#222222;
 }
 .logo-circle{
   width:24px;
@@ -224,9 +224,6 @@ body{
   .layout {
     display: block;
     padding: 16px;
-  }
-  .topbar{
-    color:#CC2222;
   }
   .grid {
     display: flex;
