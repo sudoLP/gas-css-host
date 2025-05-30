@@ -38,7 +38,7 @@ async function loadTopics() {
       </div>
     `;
   card.addEventListener("click", () => {
-    loadThread(i, t.title, t.body);  // ← 先に詳細表示
+    loadThread(t.id, t.title, t.body);  // ← 先に詳細表示
     document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
     card.classList.add("active");    // ← 後に枠線
   });
