@@ -230,9 +230,6 @@ body{
     flex-direction: column;
     gap: 12px;
   }
-  .topbar{
-    color:#222;
-  }
   .thread {
     position: fixed;
     top: 0;
@@ -253,7 +250,7 @@ body{
     display: block;
     transform: translateX(-100%);
   }
-  .back-btn {
+  .thread .back-btn {
     background-color: var(--primary) !important;
     color: white !important;
     border: none !important;
