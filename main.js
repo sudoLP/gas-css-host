@@ -1,7 +1,7 @@
 const WEBAPP = 'https://script.google.com/macros/s/AKfycbwRPH3xMR-oJDQUVmGOVG8Q0noD64Ovf8anO-qwzEKdlURCBS2abUySsW4rjxFLZG_X/exec';
 
 const params = new URLSearchParams(window.location.search);
-const userId = params.get("uid") || "anonymous";
+const userId = params.get("uid") || "guest";
 document.getElementById("username").textContent = userId;
 
 const topicList = document.getElementById("topicList");
