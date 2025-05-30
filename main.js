@@ -52,7 +52,7 @@ async function loadThread(id, title, body) {
 
   threadEl.innerHTML = `
     <div class="thread-header">
-      <button onclick="closeThread()">←</button>
+      <button class="back-btn" onclick="closeThread()">←</button>
       <h2>${title}</h2>
     </div>
     <p>${body}</p>
