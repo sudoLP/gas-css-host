@@ -82,7 +82,8 @@ async function loadThread(id, title, body) {
     });
 
     replyForm.reset();
-    loadThread(id, title, body);
+    await loadThread(id, title, body);
+    await loadTopics();
   });
 
   threadEl.classList.remove("hidden");
