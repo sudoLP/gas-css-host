@@ -139,7 +139,7 @@ body{
 }
 #modal label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
 #modal input[name="title"],
 #modal textarea[name="body"] {
