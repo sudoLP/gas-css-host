@@ -137,10 +137,18 @@ body{
   background:var(--primary);
   color:#fff;
 }
+#modal label {
+  display: block;
+  margin-bottom: 12px;
+}
 #modal input[name="title"],
 #modal textarea[name="body"] {
+  display: block;
   width: 100%;
-  box-sizing: border-box;
+  font-size: 1em;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 .comment-count {
