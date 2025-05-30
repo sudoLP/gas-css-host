@@ -87,12 +87,17 @@ async function loadThread(id, title, body) {
   });
 
   threadEl.classList.remove("hidden");
-  threadEl.classList.add("visible");
+  // 少し遅らせて visible を追加（アニメーションのトリガー）
+  setTimeout(() => {
+    threadEl.classList.add("visible");
+  }, 10);
 }
 
 function closeThread() {
-  threadEl.classList.add("hidden");
   threadEl.classList.remove("visible");
+  setTimeout(() => {
+    threadEl.classList.add("hidden");   // 完全に非表示に
+  }, 300); // CSSのtransition時間と同じ（0.3秒）
   document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
 }
 
