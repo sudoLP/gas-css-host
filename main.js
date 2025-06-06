@@ -12,6 +12,17 @@ const cancelBtn = document.getElementById("cancelBtn");
 const form = document.getElementById("createForm");
 
 // 初期化処理
+const width = window.innerWidth;
+console.log("viewport width:", width);
+
+document.body.dataset.device = width <= 768 ? "sp" : "pc";
+
+if (width <= 768) {
+  document.body.classList.add("mobile-mode");
+} else {
+  document.body.classList.remove("mobile-mode");
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
   await loadTopics();
 
