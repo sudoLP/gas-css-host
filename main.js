@@ -12,16 +12,35 @@ const cancelBtn = document.getElementById("cancelBtn");
 const form = document.getElementById("createForm");
 
 // 初期化処理
-const width = window.innerWidth;
-console.log("viewport width:", width);
+function applyDeviceClass() {
+  const width = window.innerWidth;
+  const device = width <= 768 ? "sp" : "pc";
+  document.body.dataset.device = device;
 
-document.body.dataset.device = width <= 768 ? "sp" : "pc";
+  // テスト用の目視デバッグ表示（必要なければ削除可）
+  const existing = document.getElementById("debugViewport");
+  if (existing) existing.remove();
 
-if (width <= 768) {
-  document.body.classList.add("mobile-mode");
-} else {
-  document.body.classList.remove("mobile-mode");
+  const debug = document.createElement("div");
+  debug.id = "debugViewport";
+  debug.style.position = "fixed";
+  debug.style.bottom = "10px";
+  debug.style.right = "10px";
+  debug.style.background = "rgba(0,0,0,0.7)";
+  debug.style.color = "white";
+  debug.style.padding = "6px 10px";
+  debug.style.borderRadius = "6px";
+  debug.style.zIndex = "9999";
+  debug.style.fontSize = "12px";
+  debug.textContent = `Width: ${width}px (${device})`;
+  document.body.appendChild(debug);
 }
+
+// 初回判定（できるだけ早く）
+applyDeviceClass();
+
+// Safari等での誤判定に対応するため、遅延で再評価
+setTimeout(applyDeviceClass, 200);
 
 window.addEventListener("DOMContentLoaded", async () => {
   await loadTopics();
