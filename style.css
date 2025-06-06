@@ -331,3 +331,39 @@ body{
     display: none !important;
   }
 }
+/* モバイルモード判定後の処理 */
+body[data-device="sp"] .layout {
+  display: block !important;
+  padding: 16px !important;
+}
+
+body[data-device="sp"] .grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+body[data-device="sp"] .thread {
+  position: fixed !important;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  min-height: 100%;
+  background: white;
+  z-index: 1000;
+  padding: 16px;
+  overflow-y: auto;
+  transform: translateX(0%);
+  transition: transform 0.3s ease;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+body[data-device="sp"] .thread.visible {
+  display: block !important;
+  transform: translateX(-100%) !important;
+}
+
+body[data-device="sp"] .back-btn {
+  display: inline-flex !important;
+}
